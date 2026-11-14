@@ -115,8 +115,8 @@ function Get-BcrChrome {
 }
 function Test-BcrBrowser {
     if (-not (Get-Command node -ErrorAction SilentlyContinue) -or -not (Get-BcrChrome)) { return $false }
-    $null = & node -e "require('puppeteer-core')" 2>&1
-    return ($LASTEXITCODE -eq 0)
+    Push-Location $PSScriptRoot   # puppeteer-core is installed in tests/node_modules
+    try { $null = & node -e "require('puppeteer-core')" 2>&1; return ($LASTEXITCODE -eq 0) } finally { Pop-Location }
 }
 # Invoke-BcrNode: run one tests/browser/*.js script -> @{ ExitCode; Out }
 function Invoke-BcrNode {

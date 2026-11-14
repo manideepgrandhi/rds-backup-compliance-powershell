@@ -19,8 +19,17 @@ NOW = datetime.fromtimestamp(int(os.environ["MOCK_NOW"]), timezone.utc) if os.en
 SCEN = os.environ.get("MOCK_SCENARIO", "fleet")
 argv = sys.argv[1:]
 if os.environ.get("MOCK_LOG"):
-    with open(os.environ["MOCK_LOG"], "a") as fh:
-        fh.write(json.dumps(argv) + "\n")
+    # parallel region scans run several mocks at once: take a lock file so no line is lost (Windows appends race)
+    import time
+    lock = os.environ["MOCK_LOG"] + ".lock"; held = False
+    for _ in range(500):
+        try: os.close(os.open(lock, os.O_CREAT | os.O_EXCL | os.O_WRONLY)); held = True; break
+        except FileExistsError: time.sleep(0.01)
+    try:
+        with open(os.environ["MOCK_LOG"], "a") as fh:
+            fh.write(json.dumps(argv) + "\n")
+    finally:
+        if held: os.remove(lock)
 
 
 def fail(code, op, msg, rc=254):

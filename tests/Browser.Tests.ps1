@@ -24,7 +24,7 @@ BeforeAll {
     $script:Dup444 = Join-Path $D 'dup444.json'; [System.IO.File]::WriteAllText($Dup444, ($dup | ConvertTo-Json -Depth 100))
     $script:DupHtml = Join-Path $D 'dup ids.html'
     $null = Invoke-Bcr -Arguments @('-Merge', $prod, $Dup444, '-OutputDir', $DupHtml)
-    if (-not (Test-BcrBrowser)) { if ($env:RDS_BCR_REQUIRE_BROWSER -eq '1') { throw 'node + puppeteer-core + Chrome required (RDS_BCR_REQUIRE_BROWSER=1)' } }
+    if (-not (Test-BcrBrowser)) { if ($env:RDS_BCR_REQUIRE_BROWSER -eq '1') { throw "node + puppeteer-core + Chrome required (RDS_BCR_REQUIRE_BROWSER=1); node: $([bool](Get-Command node -ErrorAction SilentlyContinue)), chrome: $(Get-BcrChrome)" } }
 }
 
 Describe 'HTML page in headless Chrome' -Skip:$NoBrowser {
