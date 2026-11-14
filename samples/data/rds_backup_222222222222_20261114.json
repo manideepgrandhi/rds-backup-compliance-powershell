@@ -1,0 +1,709 @@
+{
+  "schema": "rds_backup_compliance_ps_data",
+  "schema_version": 1,
+  "tool_version": "1.0.0",
+  "collected_epoch": 1794650400,
+  "collected_at": "2026-11-14T10:00:00Z",
+  "accounts": [
+    {
+      "account": "222222222222",
+      "profile": "nonprod",
+      "name": "",
+      "collected_epoch": 1794650400
+    }
+  ],
+  "regions": [
+    {
+      "account": "222222222222",
+      "region": "ap-south-1",
+      "status": "with databases",
+      "resources": 2,
+      "errors": [],
+      "snapshot_scan": true,
+      "existing": {
+        "clusters": [
+          "hr-aurora-pg"
+        ],
+        "instances": [
+          "hr-aurora-pg-1",
+          "payroll-sqlserver"
+        ]
+      }
+    }
+  ],
+  "resources": [
+    {
+      "account_id": "222222222222",
+      "region": "ap-south-1",
+      "id": "hr-aurora-pg",
+      "type": "cluster",
+      "engine": "aurora-postgresql",
+      "engine_version": "15.8",
+      "created_epoch": 1690934400,
+      "retention": 14,
+      "backup_window": "20:30-21:00",
+      "copy_tags": true,
+      "global_cluster": null,
+      "global_role": "none",
+      "snap_ok": true,
+      "backup_ok": true,
+      "snapshots": [
+        {
+          "kind": "automated",
+          "id": "rds:hr-aurora-pg-2026-11-14-08-00",
+          "created_epoch": 1794643200,
+          "status": "available",
+          "size_gb": 100,
+          "expires_epoch": null
+        },
+        {
+          "kind": "automated",
+          "id": "rds:hr-aurora-pg-2026-11-13-08-00",
+          "created_epoch": 1794556800,
+          "status": "available",
+          "size_gb": 100,
+          "expires_epoch": null
+        },
+        {
+          "kind": "automated",
+          "id": "rds:hr-aurora-pg-2026-11-12-08-00",
+          "created_epoch": 1794470400,
+          "status": "available",
+          "size_gb": 100,
+          "expires_epoch": null
+        },
+        {
+          "kind": "automated",
+          "id": "rds:hr-aurora-pg-2026-11-11-08-00",
+          "created_epoch": 1794384000,
+          "status": "available",
+          "size_gb": 100,
+          "expires_epoch": null
+        },
+        {
+          "kind": "automated",
+          "id": "rds:hr-aurora-pg-2026-11-10-08-00",
+          "created_epoch": 1794297600,
+          "status": "available",
+          "size_gb": 100,
+          "expires_epoch": null
+        },
+        {
+          "kind": "automated",
+          "id": "rds:hr-aurora-pg-2026-11-09-08-00",
+          "created_epoch": 1794211200,
+          "status": "available",
+          "size_gb": 100,
+          "expires_epoch": null
+        },
+        {
+          "kind": "automated",
+          "id": "rds:hr-aurora-pg-2026-11-08-08-00",
+          "created_epoch": 1794124800,
+          "status": "available",
+          "size_gb": 100,
+          "expires_epoch": null
+        },
+        {
+          "kind": "automated",
+          "id": "rds:hr-aurora-pg-2026-11-07-08-00",
+          "created_epoch": 1794038400,
+          "status": "available",
+          "size_gb": 100,
+          "expires_epoch": null
+        },
+        {
+          "kind": "automated",
+          "id": "rds:hr-aurora-pg-2026-11-06-08-00",
+          "created_epoch": 1793952000,
+          "status": "available",
+          "size_gb": 100,
+          "expires_epoch": null
+        },
+        {
+          "kind": "automated",
+          "id": "rds:hr-aurora-pg-2026-11-05-08-00",
+          "created_epoch": 1793865600,
+          "status": "available",
+          "size_gb": 100,
+          "expires_epoch": null
+        },
+        {
+          "kind": "automated",
+          "id": "rds:hr-aurora-pg-2026-11-04-08-00",
+          "created_epoch": 1793779200,
+          "status": "available",
+          "size_gb": 100,
+          "expires_epoch": null
+        },
+        {
+          "kind": "automated",
+          "id": "rds:hr-aurora-pg-2026-11-03-08-00",
+          "created_epoch": 1793692800,
+          "status": "available",
+          "size_gb": 100,
+          "expires_epoch": null
+        },
+        {
+          "kind": "automated",
+          "id": "rds:hr-aurora-pg-2026-11-02-08-00",
+          "created_epoch": 1793606400,
+          "status": "available",
+          "size_gb": 100,
+          "expires_epoch": null
+        },
+        {
+          "kind": "automated",
+          "id": "rds:hr-aurora-pg-2026-11-01-08-00",
+          "created_epoch": 1793520000,
+          "status": "available",
+          "size_gb": 100,
+          "expires_epoch": null
+        },
+        {
+          "kind": "manual",
+          "id": "hr-aurora-pg-manual-5d",
+          "created_epoch": 1794218400,
+          "status": "available",
+          "size_gb": 100,
+          "expires_epoch": null
+        },
+        {
+          "kind": "manual",
+          "id": "hr-aurora-pg-manual-150d",
+          "created_epoch": 1781690400,
+          "status": "available",
+          "size_gb": 100,
+          "expires_epoch": null
+        },
+        {
+          "kind": "backup",
+          "id": "job-hr-aurora-pg-1794632400",
+          "created_epoch": 1794632400,
+          "status": "COMPLETED",
+          "size_gb": 50,
+          "expires_epoch": 1797656400,
+          "vault": "prod vault",
+          "ret_days": 35,
+          "plan": "prod-rds-plan",
+          "rule": "weekly-sat",
+          "cron": "cron(0 5 ? * SAT *)",
+          "rtz": "Etc/UTC"
+        },
+        {
+          "kind": "backup",
+          "id": "job-hr-aurora-pg-1794121200",
+          "created_epoch": 1794121200,
+          "status": "COMPLETED",
+          "size_gb": 50,
+          "expires_epoch": 1797145200,
+          "vault": "prod vault",
+          "ret_days": 35,
+          "plan": "prod-rds-plan",
+          "rule": "weekly-sat",
+          "cron": "cron(0 5 ? * SAT *)",
+          "rtz": "Etc/UTC"
+        },
+        {
+          "kind": "backup",
+          "id": "job-hr-aurora-pg-1793422800",
+          "created_epoch": 1793422800,
+          "status": "COMPLETED",
+          "size_gb": 50,
+          "expires_epoch": 1796446800,
+          "vault": "prod vault",
+          "ret_days": 35,
+          "plan": "prod-rds-plan",
+          "rule": "weekly-sat",
+          "cron": "cron(0 5 ? * SAT *)",
+          "rtz": "Etc/UTC"
+        },
+        {
+          "kind": "backup",
+          "id": "job-hr-aurora-pg-1792818000",
+          "created_epoch": 1792818000,
+          "status": "COMPLETED",
+          "size_gb": 50,
+          "expires_epoch": 1795842000,
+          "vault": "prod vault",
+          "ret_days": 35,
+          "plan": "prod-rds-plan",
+          "rule": "weekly-sat",
+          "cron": "cron(0 5 ? * SAT *)",
+          "rtz": "Etc/UTC"
+        },
+        {
+          "kind": "backup",
+          "id": "job-hr-aurora-pg-1792213200",
+          "created_epoch": 1792213200,
+          "status": "COMPLETED",
+          "size_gb": 50,
+          "expires_epoch": 1795237200,
+          "vault": "prod vault",
+          "ret_days": 35,
+          "plan": "prod-rds-plan",
+          "rule": "weekly-sat",
+          "cron": "cron(0 5 ? * SAT *)",
+          "rtz": "Etc/UTC"
+        },
+        {
+          "kind": "backup",
+          "id": "job-hr-aurora-pg-1793505600",
+          "created_epoch": 1793505600,
+          "status": "COMPLETED",
+          "size_gb": 50,
+          "expires_epoch": 1825041600,
+          "vault": "prod vault",
+          "ret_days": 365,
+          "plan": "prod-rds-plan",
+          "rule": "monthly-first-sun",
+          "cron": "cron(0 4 ? * 1#1 *)",
+          "rtz": "Etc/UTC"
+        },
+        {
+          "kind": "backup",
+          "id": "job-hr-aurora-pg-1791086400",
+          "created_epoch": 1791086400,
+          "status": "COMPLETED",
+          "size_gb": 50,
+          "expires_epoch": 1822622400,
+          "vault": "prod vault",
+          "ret_days": 365,
+          "plan": "prod-rds-plan",
+          "rule": "monthly-first-sun",
+          "cron": "cron(0 4 ? * 1#1 *)",
+          "rtz": "Etc/UTC"
+        },
+        {
+          "kind": "backup",
+          "id": "job-hr-aurora-pg-1788667200",
+          "created_epoch": 1788667200,
+          "status": "COMPLETED",
+          "size_gb": 50,
+          "expires_epoch": 1820203200,
+          "vault": "prod vault",
+          "ret_days": 365,
+          "plan": "prod-rds-plan",
+          "rule": "monthly-first-sun",
+          "cron": "cron(0 4 ? * 1#1 *)",
+          "rtz": "Etc/UTC"
+        },
+        {
+          "kind": "backup",
+          "id": "job-hr-aurora-pg-1785643200",
+          "created_epoch": 1785643200,
+          "status": "COMPLETED",
+          "size_gb": 50,
+          "expires_epoch": 1817179200,
+          "vault": "prod vault",
+          "ret_days": 365,
+          "plan": "prod-rds-plan",
+          "rule": "monthly-first-sun",
+          "cron": "cron(0 4 ? * 1#1 *)",
+          "rtz": "Etc/UTC"
+        },
+        {
+          "kind": "backup",
+          "id": "job-hr-aurora-pg-1783224000",
+          "created_epoch": 1783224000,
+          "status": "COMPLETED",
+          "size_gb": 50,
+          "expires_epoch": 1814760000,
+          "vault": "prod vault",
+          "ret_days": 365,
+          "plan": "prod-rds-plan",
+          "rule": "monthly-first-sun",
+          "cron": "cron(0 4 ? * 1#1 *)",
+          "rtz": "Etc/UTC"
+        },
+        {
+          "kind": "backup",
+          "id": "job-hr-aurora-pg-1780804800",
+          "created_epoch": 1780804800,
+          "status": "COMPLETED",
+          "size_gb": 50,
+          "expires_epoch": 1812340800,
+          "vault": "prod vault",
+          "ret_days": 365,
+          "plan": "prod-rds-plan",
+          "rule": "monthly-first-sun",
+          "cron": "cron(0 4 ? * 1#1 *)",
+          "rtz": "Etc/UTC"
+        },
+        {
+          "kind": "backup",
+          "id": "job-hr-aurora-pg-1777780800",
+          "created_epoch": 1777780800,
+          "status": "COMPLETED",
+          "size_gb": 50,
+          "expires_epoch": 1809316800,
+          "vault": "prod vault",
+          "ret_days": 365,
+          "plan": "prod-rds-plan",
+          "rule": "monthly-first-sun",
+          "cron": "cron(0 4 ? * 1#1 *)",
+          "rtz": "Etc/UTC"
+        },
+        {
+          "kind": "backup",
+          "id": "job-hr-aurora-pg-1775361600",
+          "created_epoch": 1775361600,
+          "status": "COMPLETED",
+          "size_gb": 50,
+          "expires_epoch": 1806897600,
+          "vault": "prod vault",
+          "ret_days": 365,
+          "plan": "prod-rds-plan",
+          "rule": "monthly-first-sun",
+          "cron": "cron(0 4 ? * 1#1 *)",
+          "rtz": "Etc/UTC"
+        },
+        {
+          "kind": "backup",
+          "id": "job-hr-aurora-pg-1772337600",
+          "created_epoch": 1772337600,
+          "status": "COMPLETED",
+          "size_gb": 50,
+          "expires_epoch": 1803873600,
+          "vault": "prod vault",
+          "ret_days": 365,
+          "plan": "prod-rds-plan",
+          "rule": "monthly-first-sun",
+          "cron": "cron(0 4 ? * 1#1 *)",
+          "rtz": "Etc/UTC"
+        },
+        {
+          "kind": "backup",
+          "id": "job-hr-aurora-pg-1769918400",
+          "created_epoch": 1769918400,
+          "status": "COMPLETED",
+          "size_gb": 50,
+          "expires_epoch": 1801454400,
+          "vault": "prod vault",
+          "ret_days": 365,
+          "plan": "prod-rds-plan",
+          "rule": "monthly-first-sun",
+          "cron": "cron(0 4 ? * 1#1 *)",
+          "rtz": "Etc/UTC"
+        },
+        {
+          "kind": "backup",
+          "id": "job-hr-aurora-pg-1767499200",
+          "created_epoch": 1767499200,
+          "status": "COMPLETED",
+          "size_gb": 50,
+          "expires_epoch": 1799035200,
+          "vault": "prod vault",
+          "ret_days": 365,
+          "plan": "prod-rds-plan",
+          "rule": "monthly-first-sun",
+          "cron": "cron(0 4 ? * 1#1 *)",
+          "rtz": "Etc/UTC"
+        },
+        {
+          "kind": "backup",
+          "id": "job-hr-aurora-pg-1765080000",
+          "created_epoch": 1765080000,
+          "status": "COMPLETED",
+          "size_gb": 50,
+          "expires_epoch": 1796616000,
+          "vault": "prod vault",
+          "ret_days": 365,
+          "plan": "prod-rds-plan",
+          "rule": "monthly-first-sun",
+          "cron": "cron(0 4 ? * 1#1 *)",
+          "rtz": "Etc/UTC"
+        }
+      ]
+    },
+    {
+      "account_id": "222222222222",
+      "region": "ap-south-1",
+      "id": "payroll-sqlserver",
+      "type": "instance",
+      "engine": "sqlserver-se",
+      "engine_version": "15.00.4415.2.v1",
+      "created_epoch": 1665014400,
+      "retention": 7,
+      "global_cluster": null,
+      "backup_window": "04:00-04:30",
+      "copy_tags": true,
+      "global_role": "none",
+      "snap_ok": true,
+      "backup_ok": true,
+      "snapshots": [
+        {
+          "kind": "automated",
+          "id": "rds:payroll-sqlserver-2026-11-14-02-00",
+          "created_epoch": 1794621600,
+          "status": "available",
+          "size_gb": 100,
+          "expires_epoch": null
+        },
+        {
+          "kind": "automated",
+          "id": "rds:payroll-sqlserver-2026-11-13-02-00",
+          "created_epoch": 1794535200,
+          "status": "available",
+          "size_gb": 100,
+          "expires_epoch": null
+        },
+        {
+          "kind": "automated",
+          "id": "rds:payroll-sqlserver-2026-11-12-02-00",
+          "created_epoch": 1794448800,
+          "status": "available",
+          "size_gb": 100,
+          "expires_epoch": null
+        },
+        {
+          "kind": "automated",
+          "id": "rds:payroll-sqlserver-2026-11-11-02-00",
+          "created_epoch": 1794362400,
+          "status": "available",
+          "size_gb": 100,
+          "expires_epoch": null
+        },
+        {
+          "kind": "automated",
+          "id": "rds:payroll-sqlserver-2026-11-10-02-00",
+          "created_epoch": 1794276000,
+          "status": "available",
+          "size_gb": 100,
+          "expires_epoch": null
+        },
+        {
+          "kind": "automated",
+          "id": "rds:payroll-sqlserver-2026-11-09-02-00",
+          "created_epoch": 1794189600,
+          "status": "available",
+          "size_gb": 100,
+          "expires_epoch": null
+        },
+        {
+          "kind": "automated",
+          "id": "rds:payroll-sqlserver-2026-11-08-02-00",
+          "created_epoch": 1794103200,
+          "status": "available",
+          "size_gb": 100,
+          "expires_epoch": null
+        },
+        {
+          "kind": "manual",
+          "id": "payroll-sqlserver-manual-95d",
+          "created_epoch": 1786442400,
+          "status": "available",
+          "size_gb": 100,
+          "expires_epoch": null
+        },
+        {
+          "kind": "manual",
+          "id": "payroll-sqlserver-manual-1100d",
+          "created_epoch": 1699610400,
+          "status": "available",
+          "size_gb": 100,
+          "expires_epoch": null
+        },
+        {
+          "kind": "backup",
+          "id": "job-payroll-sqlserver-1794632400",
+          "created_epoch": 1794632400,
+          "status": "COMPLETED",
+          "size_gb": 50,
+          "expires_epoch": 1797656400,
+          "vault": "prod vault",
+          "ret_days": 35,
+          "plan": "1a2b3c4d-plan",
+          "rule": "rule-weekly-sat"
+        },
+        {
+          "kind": "backup",
+          "id": "job-payroll-sqlserver-1794027600",
+          "created_epoch": 1794027600,
+          "status": "COMPLETED",
+          "size_gb": 50,
+          "expires_epoch": 1797051600,
+          "vault": "prod vault",
+          "ret_days": 35,
+          "plan": "1a2b3c4d-plan",
+          "rule": "rule-weekly-sat"
+        },
+        {
+          "kind": "backup",
+          "id": "job-payroll-sqlserver-1793422800",
+          "created_epoch": 1793422800,
+          "status": "COMPLETED",
+          "size_gb": 50,
+          "expires_epoch": 1796446800,
+          "vault": "prod vault",
+          "ret_days": 35,
+          "plan": "1a2b3c4d-plan",
+          "rule": "rule-weekly-sat"
+        },
+        {
+          "kind": "backup",
+          "id": "job-payroll-sqlserver-1792818000",
+          "created_epoch": 1792818000,
+          "status": "COMPLETED",
+          "size_gb": 50,
+          "expires_epoch": 1795842000,
+          "vault": "prod vault",
+          "ret_days": 35,
+          "plan": "1a2b3c4d-plan",
+          "rule": "rule-weekly-sat"
+        },
+        {
+          "kind": "backup",
+          "id": "job-payroll-sqlserver-1792213200",
+          "created_epoch": 1792213200,
+          "status": "COMPLETED",
+          "size_gb": 50,
+          "expires_epoch": 1795237200,
+          "vault": "prod vault",
+          "ret_days": 35,
+          "plan": "1a2b3c4d-plan",
+          "rule": "rule-weekly-sat"
+        },
+        {
+          "kind": "backup",
+          "id": "job-payroll-sqlserver-1793505600",
+          "created_epoch": 1793505600,
+          "status": "COMPLETED",
+          "size_gb": 50,
+          "expires_epoch": 1825041600,
+          "vault": "prod vault",
+          "ret_days": 365,
+          "plan": "1a2b3c4d-plan",
+          "rule": "rule-monthly-first-sun"
+        },
+        {
+          "kind": "backup",
+          "id": "job-payroll-sqlserver-1791086400",
+          "created_epoch": 1791086400,
+          "status": "COMPLETED",
+          "size_gb": 50,
+          "expires_epoch": 1822622400,
+          "vault": "prod vault",
+          "ret_days": 365,
+          "plan": "1a2b3c4d-plan",
+          "rule": "rule-monthly-first-sun"
+        },
+        {
+          "kind": "backup",
+          "id": "job-payroll-sqlserver-1785643200",
+          "created_epoch": 1785643200,
+          "status": "COMPLETED",
+          "size_gb": 50,
+          "expires_epoch": 1817179200,
+          "vault": "prod vault",
+          "ret_days": 365,
+          "plan": "1a2b3c4d-plan",
+          "rule": "rule-monthly-first-sun"
+        },
+        {
+          "kind": "backup",
+          "id": "job-payroll-sqlserver-1783224000",
+          "created_epoch": 1783224000,
+          "status": "COMPLETED",
+          "size_gb": 50,
+          "expires_epoch": 1814760000,
+          "vault": "prod vault",
+          "ret_days": 365,
+          "plan": "1a2b3c4d-plan",
+          "rule": "rule-monthly-first-sun"
+        },
+        {
+          "kind": "backup",
+          "id": "job-payroll-sqlserver-1777780800",
+          "created_epoch": 1777780800,
+          "status": "COMPLETED",
+          "size_gb": 50,
+          "expires_epoch": 1809316800,
+          "vault": "prod vault",
+          "ret_days": 365,
+          "plan": "1a2b3c4d-plan",
+          "rule": "rule-monthly-first-sun"
+        },
+        {
+          "kind": "backup",
+          "id": "job-payroll-sqlserver-1775361600",
+          "created_epoch": 1775361600,
+          "status": "COMPLETED",
+          "size_gb": 50,
+          "expires_epoch": 1806897600,
+          "vault": "prod vault",
+          "ret_days": 365,
+          "plan": "1a2b3c4d-plan",
+          "rule": "rule-monthly-first-sun"
+        },
+        {
+          "kind": "backup",
+          "id": "job-payroll-sqlserver-1772337600",
+          "created_epoch": 1772337600,
+          "status": "COMPLETED",
+          "size_gb": 50,
+          "expires_epoch": 1803873600,
+          "vault": "prod vault",
+          "ret_days": 365,
+          "plan": "1a2b3c4d-plan",
+          "rule": "rule-monthly-first-sun"
+        },
+        {
+          "kind": "backup",
+          "id": "job-payroll-sqlserver-1769918400",
+          "created_epoch": 1769918400,
+          "status": "COMPLETED",
+          "size_gb": 50,
+          "expires_epoch": 1801454400,
+          "vault": "prod vault",
+          "ret_days": 365,
+          "plan": "1a2b3c4d-plan",
+          "rule": "rule-monthly-first-sun"
+        },
+        {
+          "kind": "backup",
+          "id": "job-payroll-sqlserver-1767499200",
+          "created_epoch": 1767499200,
+          "status": "COMPLETED",
+          "size_gb": 50,
+          "expires_epoch": 1799035200,
+          "vault": "prod vault",
+          "ret_days": 365,
+          "plan": "1a2b3c4d-plan",
+          "rule": "rule-monthly-first-sun"
+        },
+        {
+          "kind": "backup",
+          "id": "job-payroll-sqlserver-1765080000",
+          "created_epoch": 1765080000,
+          "status": "COMPLETED",
+          "size_gb": 50,
+          "expires_epoch": 1796616000,
+          "vault": "prod vault",
+          "ret_days": 365,
+          "plan": "1a2b3c4d-plan",
+          "rule": "rule-monthly-first-sun"
+        }
+      ]
+    }
+  ],
+  "orphans": [
+    {
+      "account_id": "222222222222",
+      "region": "ap-south-1",
+      "type": "cluster",
+      "id": "hr-legacy-final",
+      "kind": "manual",
+      "source_id": "hr-legacy-aurora",
+      "source_account": null,
+      "source_region": null,
+      "engine": "aurora-mysql",
+      "engine_version": "5.7.mysql_aurora.2.11.2",
+      "created_epoch": 1768730400,
+      "status": "available",
+      "size_gb": 800,
+      "encrypted": true,
+      "kms_key": "arn:aws:kms:ap-south-1:222222222222:key/1234abcd-12ab-34cd-56ef-1234567890ab"
+    }
+  ]
+}
