@@ -138,11 +138,14 @@ credentials: no keys to store or rotate. The `base` profile reports on the jump 
 You need PowerShell 7.2 or later (`pwsh`) and the AWS CLI v2.
 
 ```powershell
+$ProgressPreference = 'SilentlyContinue'
 Set-Location $env:USERPROFILE
-git clone https://github.com/manideepgrandhi/rds-backup-compliance-powershell.git
-# or without git:
-# Invoke-WebRequest https://github.com/manideepgrandhi/rds-backup-compliance-powershell/archive/refs/heads/main.zip -OutFile rbc.zip
-# Expand-Archive rbc.zip -DestinationPath . ; Rename-Item rds-backup-compliance-powershell-main rds-backup-compliance-powershell
+$base = 'https://github.com/manideepgrandhi/rds-backup-compliance-powershell/releases/latest/download'
+Invoke-WebRequest "$base/rds-backup-compliance-powershell.zip" -OutFile rds-backup-compliance-powershell.zip
+Invoke-WebRequest "$base/rds-backup-compliance-powershell.zip.sha256" -OutFile rds-backup-compliance-powershell.zip.sha256
+$expected = ((Get-Content .\rds-backup-compliance-powershell.zip.sha256 -Raw) -split '\s+')[0]
+if ((Get-FileHash .\rds-backup-compliance-powershell.zip -Algorithm SHA256).Hash -ne $expected) { throw 'Checksum mismatch' }
+Expand-Archive .\rds-backup-compliance-powershell.zip -DestinationPath . -Force
 pwsh .\rds-backup-compliance-powershell\Invoke-RdsBackupCompliance.ps1 -Version
 ```
 

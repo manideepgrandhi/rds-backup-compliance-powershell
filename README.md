@@ -8,6 +8,8 @@ AWS CLI v2.
 
 All account numbers and names in this repository are fake examples.
 
+Release history: [What's new](https://manideepgrandhi.github.io/rds-backup-compliance-powershell/) · also in [CHANGELOG.md](CHANGELOG.md).
+
 ## Contents
 
 - [Requirements](#requirements) · [Install](#install) · [Quick start](#quick-start)

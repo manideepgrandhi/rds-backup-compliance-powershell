@@ -1,0 +1,58 @@
+# Release zip for the PowerShell port (mirrors the Bash repo's release workflow).
+# Runs ONLY when a v* tag is pushed (or by hand for an existing tag); nothing happens on branch pushes.
+name: release
+on:
+  push:
+    tags: ['v*']
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Existing tag to (re)build the release for, e.g. v1.0.0'
+        required: true
+# least privilege: read-only by default, write only for the job that publishes
+permissions:
+  contents: read
+jobs:
+  zip:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      # pinned to a full commit SHA (tags are mutable); bump SHA and comment together
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4.3.1
+        with:
+          persist-credentials: false
+          ref: ${{ github.event.inputs.tag || github.ref }}
+      - name: Build rds-backup-compliance-powershell.zip (runtime files only)
+        run: |
+          set -euo pipefail
+          N=rds-backup-compliance-powershell; D=dist/$N; mkdir -p "$D"
+          # runtime only: no docs/, samples/, tests/, tools/, .github/, whats-new/
+          for f in Invoke-RdsBackupCompliance.ps1 src assets README.md \
+                   EXAMPLES.md LICENSE rds_backup_compliance_report.conf.example \
+                   compliance_exceptions.conf.example; do
+            [ -e "$f" ] && cp -a "$f" "$D/"
+          done
+          cd dist && zip -rqX "$N.zip" "$N"
+          unzip -Z "$N.zip"
+          ! unzip -Z1 "$N.zip" | grep -E '/(docs|samples|tests|tools|whats-new|\.github)/'
+          # checksum published next to the zip
+          sha256sum "$N.zip" > "$N.zip.sha256"
+          sha256sum -c "$N.zip.sha256"
+          unzip -q "$N.zip" -d check && pwsh -NoProfile -File "./check/$N/Invoke-RdsBackupCompliance.ps1" -Version
+      - name: Publish release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: ${{ github.event.inputs.tag || github.ref_name }}
+          REPO: ${{ github.repository }}
+        run: |
+          set -euo pipefail
+          N=rds-backup-compliance-powershell
+          NOTES=$(mktemp)
+          python3 tools/Write-ReleaseNotes.py "$TAG" --repo "$REPO" --name "$N" -o "$NOTES"
+          if gh release view "$TAG" >/dev/null 2>&1; then
+            gh release upload "$TAG" "dist/$N.zip" "dist/$N.zip.sha256" --clobber
+            gh release edit "$TAG" --notes-file "$NOTES"
+          else
+            gh release create "$TAG" "dist/$N.zip" "dist/$N.zip.sha256" --title "$TAG" --notes-file "$NOTES"
+          fi
