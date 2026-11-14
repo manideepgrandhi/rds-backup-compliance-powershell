@@ -1,0 +1,106 @@
+name: pages
+on:
+  # Rebuild when release notes / site source change on main
+  push:
+    branches: [main]
+    paths:
+      - 'CHANGELOG.md'
+      - 'whats-new/**'
+      - '.github/workflows/pages.yml'
+  # A release created with GITHUB_TOKEN (the release workflow) does not fire
+  # the `release` event, so the page would stay empty after tagging. Rebuild
+  # after the release workflow finishes instead. workflow_run does fire for
+  # GITHUB_TOKEN runs, and it starts only after the zip is published, so the
+  # page can link to the assets. Keep `release` published for releases made
+  # with a PAT (those do fire the event).
+  workflow_run:
+    workflows: [release]
+    types: [completed]
+  release:
+    types: [published]
+  workflow_dispatch:
+
+# least privilege: read-only by default; write only where needed
+permissions:
+  contents: read
+
+concurrency:
+  group: pages-${{ github.repository }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    if: ${{ github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success' }}
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      # pinned to a full commit SHA (tags are mutable); bump SHA and comment together
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4.3.1
+        with:
+          persist-credentials: false
+          fetch-depth: 0
+      - name: Build What's new site
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GITHUB_OWNER: ${{ github.repository_owner }}
+          GITHUB_REPO: ${{ github.event.repository.name }}
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import sys
+          from pathlib import Path
+          sys.path.insert(0, "whats-new")
+          from build import parse_changelog
+          bullets = parse_changelog(Path("CHANGELOG.md")).get("1.0.0") or []
+          assert bullets, "CHANGELOG 1.0.0 has no bullets"
+          # Wrapped bullets must be joined (the sister-repo builder kept only the first line).
+          assert any(
+              "Daily (RDS automated)" in b
+              and "new resources and the missing dates in the gaps" in b
+              for b in bullets
+          ), bullets
+          assert not any(b.endswith(" covering Aurora") or b.endswith("counts for") for b in bullets)
+          print("parse_changelog wrapped-bullet check ok:", len(bullets), "bullets")
+          PY
+          python3 whats-new/build.py .
+          test -f whats-new/dist/index.html
+          test -f whats-new/dist/style.css
+          test -f whats-new/dist/app.js
+          test -f whats-new/dist/releases.json
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          html = Path("whats-new/dist/index.html").read_text(encoding="utf-8")
+          meta = json.loads(Path("whats-new/dist/releases.json").read_text(encoding="utf-8"))
+          assert "What" in html
+          if meta.get("releases"):
+              assert 'class="card"' in html
+              assert "Download zip" in html
+              features = " ".join(
+                  " ".join(r.get("features") or []) for r in meta["releases"]
+              )
+              # Live page must include the wrapped continuation, not a truncated first line.
+              if any(r.get("tag", "").lstrip("vV") == "1.0.0" for r in meta["releases"]):
+                  assert "new resources and the missing dates in the gaps" in features
+                  assert "new resources and the missing dates in the gaps" in html
+          print("dist ok")
+          PY
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@7b1f4a764d45c48632c6b24a0339c27f5614fb0b # v4.0.0
+        with:
+          path: whats-new/dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    permissions:
+      pages: write
+      id-token: write
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@d6db90164ac5ed86f2b6aed7e0febac5b3c0c03e # v4.0.5

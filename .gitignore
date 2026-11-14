@@ -19,3 +19,6 @@ __pycache__/
 *.pyc
 .vscode/
 .idea/
+
+# Built What's new site (GitHub Pages artifact)
+whats-new/dist/
