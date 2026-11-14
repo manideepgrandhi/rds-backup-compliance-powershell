@@ -1,0 +1,7 @@
+* text=auto eol=lf
+*.cmd text eol=crlf
+*.png binary
+# the HTML assets and the samples are byte-exact (same page as the Bash tool)
+assets/** -text
+samples/** -text
+tests/mock/aws text eol=lf

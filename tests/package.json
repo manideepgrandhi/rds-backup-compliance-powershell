@@ -1,0 +1,8 @@
+{
+  "name": "rds-backup-compliance-powershell-browser-tests",
+  "private": true,
+  "description": "Headless Chrome checks of the HTML report (tests/browser/*.js); installed by CI with npm install",
+  "dependencies": {
+    "puppeteer-core": "^23.11.1"
+  }
+}

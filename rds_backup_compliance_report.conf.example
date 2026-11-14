@@ -1,0 +1,61 @@
+# Invoke-RdsBackupCompliance.ps1 -ConfigFile FILE
+# key=value, the same key names as the Bash tool's --config file (long option names without "--"; - or _ both work).
+# Never executed. Parameters on the command line override these (a list given there replaces the list here).
+# Credentials are refused: use an AWS CLI profile, SSO or an instance role.
+# profile=prod
+# region=us-east-1,us-west-2
+# all-regions=true
+# engine=aurora-*
+# identifier=orders-*
+# Schedule: RDS automated daily (7d), AWS Backup every Saturday (~1 month), first Sunday monthly (1 year), no yearly
+# daily=7
+# daily-max-age=26
+# weekly=auto checks every weekly-weekday in the last weekly-window-days; weekly=N checks the last N
+# weekly=auto
+# weekly-weekday=sat
+# weekly-window-days=30
+# monthly=12
+# monthly-rule=first-sun
+# yearly=0
+# retention range that makes an AWS Backup point weekly / monthly (counted)
+# weekly-days=25-40
+# monthly-days=300-400
+# tolerance-days=1
+# strict retention: a counted point whose retention differs from these by more than retention-tolerance-days
+# is highlighted ("weekly point has 35d, expected 30d"); never a failure.
+# daily-retention-days defaults to daily (RDS BackupRetentionPeriod should be exactly 7).
+# daily-retention-days=7
+# weekly-retention-days=30
+# monthly-retention-days=365
+# retention-tolerance-days=1
+# regions of one account scanned at the same time (1 = one by one)
+# parallel=4
+# snapshot-price-per-gb=0.021
+# manual-older-than=90
+# format=html,csv
+# output-dir=./reports
+# prefix=rds_backup_compliance
+# save-data=yes
+# non-compliant-only=no
+# fail-on-noncompliant=no
+# Compliance exceptions (see compliance_exceptions.conf.example). Default: compliance_exceptions.conf
+# next to the script when present, else off.
+# exceptions = ./compliance_exceptions.conf
+# tz=Asia/Kolkata
+# log-file=./reports/rds_backup.log
+# aws-timeout=30
+# max-attempts=5
+# verbose=no
+# Engines whose Role=replica or Role=secondary rows are always COMPLIANT (no backup checks).
+# Comma-separated globs. Empty = daily only for those roles. Examples: oracle-* | aurora-* | oracle-*,aurora-*
+# replica-exempt-engines=oracle-*,aurora-*
+# E-mail alert over SMTP (PowerShell version only)
+# alert-email=dba-team@example.com
+# alert-smtp-server=smtp.example.com
+# alert-smtp-port=25
+# alert-from=rds-backup-compliance@example.com
+# alert-on=noncompliant
+# alert-attach=yes
+# Account names (shown as "name (number)"; otherwise the IAM account alias, otherwise the number)
+# 111111111111 = prod-payments
+# 222222222222 = nonprod-shared

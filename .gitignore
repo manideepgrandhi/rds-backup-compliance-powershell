@@ -1,0 +1,21 @@
+# Generated reports and saved data
+*.csv
+*.html
+*.txt
+rds_backup_*.json
+!samples/**
+reports/
+*.log
+# Real exceptions file and local config (may hold account names / server names)
+compliance_exceptions.conf
+*.conf
+!*.conf.example
+# Test / editor output
+TestResults/
+testResults.xml
+node_modules/
+package-lock.json
+__pycache__/
+*.pyc
+.vscode/
+.idea/

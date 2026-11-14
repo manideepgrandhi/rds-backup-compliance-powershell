@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+# Test shim: freezes `date -u +FMT` at RDS_BCR_NOW so the Bash tool can be compared with the PowerShell one.
+real=/usr/bin/date; [ -x "$real" ] || real=/bin/date
+if [ -n "${RDS_BCR_NOW:-}" ]; then
+  args=(); for a in "$@"; do args+=("$a"); done
+  exec "$real" -d "@$RDS_BCR_NOW" "${args[@]}"
+fi
+exec "$real" "$@"

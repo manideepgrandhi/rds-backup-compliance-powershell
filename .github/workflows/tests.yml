@@ -1,0 +1,63 @@
+# CI: the Pester suite on Windows and Linux against the mock AWS CLI (no AWS account, no credentials, no network to AWS),
+# including the headless Chrome page checks. On Linux the parity tests also run the Bash tool
+# (manideepgrandhi/rds-backup-compliance, read-only checkout) side by side and compare every output file.
+name: tests
+on:
+  push:
+    branches: [main, 'feature/**']
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  pester:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [windows-latest, ubuntu-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Bash reference tool (read-only checkout, Linux parity tests)
+        if: runner.os == 'Linux'
+        uses: actions/checkout@v4
+        with:
+          repository: manideepgrandhi/rds-backup-compliance
+          path: bash-ref
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: puppeteer-core (browser checks)
+        working-directory: tests
+        run: npm install --no-audit --no-fund
+      - name: PowerShell modules
+        shell: pwsh
+        run: |
+          Set-PSRepository PSGallery -InstallationPolicy Trusted
+          Install-Module Pester -RequiredVersion 5.7.1 -Scope CurrentUser -Force -SkipPublisherCheck
+          Install-Module PSScriptAnalyzer -Scope CurrentUser -Force
+      - name: Pester
+        shell: pwsh
+        run: |
+          $PSVersionTable.PSVersion
+          if ($IsLinux) {
+            $env:RDS_BCR_BASH_DIR = Join-Path $env:GITHUB_WORKSPACE 'bash-ref'
+            $env:CHROME = (Get-Command google-chrome, google-chrome-stable -ErrorAction SilentlyContinue | Select-Object -First 1).Source
+          } else {
+            $env:CHROME = 'C:\Program Files\Google\Chrome\Application\chrome.exe'
+          }
+          $env:RDS_BCR_REQUIRE_BROWSER = '1'
+          Import-Module Pester -RequiredVersion 5.7.1
+          $c = New-PesterConfiguration
+          $c.Run.Path = './tests'
+          $c.Run.Exit = $true
+          $c.Output.Verbosity = 'Detailed'
+          $c.TestResult.Enabled = $true
+          Invoke-Pester -Configuration $c
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: test-results-${{ matrix.os }}
+          path: testResults.xml
